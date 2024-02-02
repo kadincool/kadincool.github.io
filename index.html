@@ -3,11 +3,41 @@
   <head>
     <title>Kadin's github page</title>
     <style>
+      body {
+        margin: 0;
+        padding: 15px;
+        font-family: 'Courier New', Courier, monospace;
+      }
+      div {
+        padding: 10px;
+        border-radius: 20px;
+        margin-bottom: 15px;
+      }
       #welcome {
         background-image: linear-gradient(to left, cyan, white);
       }
       #welcome h2 {
         color: gray;
+      }
+      .project {
+        min-height: 50vh;
+        cursor: pointer;
+      }
+      .project a {
+        color: white;
+        font-size: x-large;
+        font-weight: bold;
+      }
+      #ibs {
+        background-image: linear-gradient(to right, black, transparent), url(./InteractiveBlockScape.png);
+        background-size: cover;
+        background-position: center;
+        /* background-image: linear-gradient(to right, white, lime); */
+      }
+      #slib {
+        text-align: right;
+        background-image: linear-gradient(to left, black, transparent), url(./SpriteLib.png);
+        background-size: cover;
       }
     </style>
   </head>
@@ -17,10 +47,8 @@
       <h2>I make code, primarily in the form of Games.</h2>
       <a href="./about">More about me.</a>
     </div>
-    <h2>Here's my projects:</s2>
-    <ul>
-      <li><a href="./InteractiveBlockscape">Interactive Blockscape</a></li>
-      <li><a href="./SpriteLib">SpriteLib</a></li>
-    </ul>
+    <h2>Here's my projects:</h2>
+    <div class="project" id="slib" onclick="location.href='./SpriteLib'"><a href="./SpriteLib">SpriteLib</a></div>
+    <div class="project" id="ibs" onclick="location.href='./InteractiveBlockscape'"><a href="./InteractiveBlockscape">Interactive Blockscape</a></div>
   </body>
 </html>
