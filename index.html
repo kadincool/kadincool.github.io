@@ -19,9 +19,43 @@
       #welcome h2 {
         color: gray;
       }
+      #contact {
+        color: white;
+        background-color: blue;
+        border-color: blue;
+        border-style: solid;
+        border-width: 3px;
+        border-radius: 20px;
+        padding: 10px;
+      }
+      #contact:hover {
+        color: blue;
+        background-color: white;
+      }
+      #moreinfo {
+        color: gray;
+        backdrop-filter: blur(10px);
+        background-color: transparent;
+        border-color: gray;
+        border-style: solid;
+        border-width: 3px;
+        border-radius: 20px;
+        padding: 10px;
+        float: right;
+      }
+      #moreinfo button {
+        transition: background-color 0.5s;
+      }
+      #moreinfo:hover {
+        color: black;
+        border-color: black;
+        background-color: white;
+      }
       .project {
-        min-height: 50vh;
+        /*min-height: 50vh;*/
         cursor: pointer;
+        position: relative;
+        aspect-ratio: 3/1;
       }
       .project a {
         color: white;
@@ -45,7 +79,8 @@
     <div id="welcome">
       <h1>Welcome!</h1>
       <h2>I make code, primarily in the form of Games.</h2>
-      <a href="./about">More about me.</a>
+      <a href="mailto:kadinalone@gmail.com"><button id="contact">Contact me!</button></a>
+      <a href="./about"><button id="moreinfo">More about me.</button></a>
     </div>
     <h2>Here's my projects:</h2>
     <div class="project" id="slib" onclick="location.href='./SpriteLib'"><a href="./SpriteLib">SpriteLib</a></div>
