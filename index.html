@@ -12,11 +12,15 @@
         padding: 10px;
         border-radius: 20px;
         margin-bottom: 15px;
+        overflow: hidden;
       }
       #welcome {
         background-image: linear-gradient(to left, cyan, white);
       }
       #welcome h2 {
+        color: dimgray;
+      }
+      #welcome h3 {
         color: gray;
       }
       #contact {
@@ -27,6 +31,7 @@
         border-width: 3px;
         border-radius: 20px;
         padding: 10px;
+        transition: background-color 0.2s, color 0.2s, border-color 0.2s;
       }
       #contact:hover {
         color: blue;
@@ -34,7 +39,7 @@
       }
       #moreinfo {
         color: gray;
-        backdrop-filter: blur(10px);
+        /*backdrop-filter: blur(10px);*/
         background-color: transparent;
         border-color: gray;
         border-style: solid;
@@ -42,9 +47,7 @@
         border-radius: 20px;
         padding: 10px;
         float: right;
-      }
-      #moreinfo button {
-        transition: background-color 0.5s;
+        transition: background-color 0.2s, color 0.2s, border-color 0.2s;
       }
       #moreinfo:hover {
         color: black;
@@ -57,12 +60,26 @@
         position: relative;
         aspect-ratio: 3/1;
       }
+      .project::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0; /*TODO: make one line*/
+        z-index: -1;
+        transition: filter 0.5s, transform 0.5s;
+      }
+      .project:hover::before {
+        filter: blur(5px);
+        transform: scale(1.05);
+      }
       .project a {
         color: white;
         font-size: x-large;
         font-weight: bold;
       }
-      #ibs {
+      #ibs::before {
         background-image: linear-gradient(to right, black, transparent), url(./InteractiveBlockScape.png);
         background-size: cover;
         background-position: center;
@@ -70,6 +87,8 @@
       }
       #slib {
         text-align: right;
+      }
+      #slib::before {
         background-image: linear-gradient(to left, black, transparent), url(./SpriteLib.png);
         background-size: cover;
       }
@@ -77,8 +96,9 @@
   </head>
   <body>
     <div id="welcome">
-      <h1>Welcome!</h1>
-      <h2>I make code, primarily in the form of Games.</h2>
+      <h3>Welcome!</h3>
+      <h1>I make games.</h1>
+      <h2>I am a programmer of web based games.<br>I can also use Unity, Godot, and Pico-8.</h2>
       <a href="mailto:kadinalone@gmail.com"><button id="contact">Contact me!</button></a>
       <a href="./about"><button id="moreinfo">More about me.</button></a>
     </div>
