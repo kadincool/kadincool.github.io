@@ -54,7 +54,7 @@ div {
   cursor: pointer;
   position: relative;
   aspect-ratio: 3/1;
-  padding: 25px;
+  padding: 10px;
 }
 .project::before {
   content: "";
@@ -76,7 +76,7 @@ div {
   color: lime
 }
 .project h2 {
-  color: gray;
+  color: darkgray; /*dark gray is lighter than gray becuase that makes sense*/
   max-width: 30%;
 }
 .project a {
@@ -87,6 +87,9 @@ div {
   background-size: cover;
   background-position: center;
   /* background-image: linear-gradient(to right, white, lime); */
+}
+#slib h2 {
+  padding-left: 70%;
 }
 #slib {
   text-align: right;
