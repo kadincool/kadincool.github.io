@@ -8,6 +8,7 @@
       }
       div {
         border-radius: 20px;
+        margin: 10px;
       }
       #back {
         background-color: cyan;
@@ -21,23 +22,67 @@
         /* background-color: gray; */
         width: 50%;
       }
-      #intro {
-        background-image: linear-gradient(to right, white, lime);
+      .block {
         padding: 5px 25px;
       }
-      #intro h2 {
+      .block h2 {
         color: gray;
+      }
+      .break {
+        height: 10px;
+        background-color: gray;
+      }
+      #intro {
+        background-image: linear-gradient(to right, white, lime);
+      }
+      .year {
+        background-color: yellow;
+        font-family: 'Times New Roman', Times, serif;
+        font-size: 60pt;
+        text-align: center;
+      }
+      #y24 {
+        background-image: linear-gradient(to right, white, orange);
+      }
+      img {
+        display: block;
+        margin: auto;
+        border-radius: 10px;
+      }
+      code {
+        background-color: #1f1f1f1f;
+        color: green;
       }
     </style>
   </head>
   <body>
     <a href="../"><div id="back"><== back</div></a>
-    <div id="intro">
+    <div class="block" id="intro">
       <div id="left">
         <h2>Hello!</h2>
         <h1>I am Kadin.</h1>
-        <p>I can make simple or complex games in JavaScript. I am eager to learn new tools and software. You can see my work here on <a href="kadincool.github.io">github</a> or on my <a href="https://kadincool.itch.io">Itch page</a>. </p>
+        <p>I can make simple or complex games in JavaScript. I am eager to learn new tools and software (though Unity has proven quite the pain). You can see my work here on <a href="https://kadincool.github.io">github</a> or on my <a href="https://kadincool.itch.io">Itch page</a>. </p>
       </div>
+    </div>
+    <div class="break"></div>
+    <div class="year">2024</div>
+    <div class="block" id="y24">
+      <p>This year, my new years resolution is to publish something. At first I was looking at the tool/engine <i>"<a href="https://haxe.org">Haxe</a>"</i>. After finding that it was more tool oriented than I would like, I continued looking for JS application runners. I decided not to use Node.JS because <em>I didn't feel like it.</em> (When I do personal projects, I tend to be more stubborn with what I use.)<br><br>
+      My search for a standalone runner ended with nothing exept <a href="https://en.wikipedia.org/wiki/Chromium_Embedded_Framework">CEF</a>, which I can't figure out how to use so I decided to just keep using HTML/JS in the browser.</p>
+      <img src="./DC_haxe.png" alt="Discord conversation with Thumbtack where I decide not to use Haxe">
+      <p>I started working on remaking one of my older games codenamed PYMC (physics minecraft) in the meantime as that was my most interesting concept<br><br>
+      One day, I was working on my game when I wanted to make it more modular. After asking ChatGPT (I was a pretty common user then), They directed me to <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules">JavaScript modules</a>. I exitedly put in a JS module and imported it to see...</p>
+      <img src="./CORS error.png" alt="A blocked cross origin error">
+      <p>Dammit cross origin!<br><br>
+      If you don't know what CORS is, it is <del>dumb and stupid</del> a system put in place for a genine reason. When the web got the <code>&lt;img&gt;</code> tag, it allowed pulling subresources from a different origin, as you, cookies and all; and it didn't stop there.<br><br>
+      Tags like <code>&lt;script</script>&gt;</code>, <code>&lt;video&gt;</code>, <code>&lt;audio&gt;</code>, and <code>&lt;iframe&gt;</code> were added too. each letting you get data as the browser. This would let you to go to webpages like, say, the webpage to <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">delete your Roblox account</a>. This was <em>bad</em> so they put in a way to only share what you want, Cross Origin Resource Sharing (CORS). You can read more <a href="https://ieftimov.com/posts/deep-dive-cors-history-how-it-works-best-practices/#in-the-beginning-was-the-first-subresource">here</a>.<br><br>
+      sufficed to say, theres nothing more un-trustworthy than a file on your PC trying to access another file on your PC. Thats why you want to <code>localhost</code>. The problem? Not wanting to use Node. Why? In this situation it's not just stubbornness, but also that I programmed a lot on my school provided laptop that doesn't even allow the debug console, let alone Node.JS. The only way to really do anything was through VSCode... and thats when I got an idea! And, would you know, one quick Google search later...</p>
+      <img src="./DC_LiveServer.png" alt="Me getting exited over the live server extension for VSCode">
+      <h1>//Insert story</h1>
+      <p>This year for first period I had a class called "Web design". In this class we had a class-long project where we each made out own website. Wix was the recommended tool, but we were allowed to use any tool we wanted, but the page we made must have its own URL. I had 2 ideas: a portfolio showing off my previous work, or a tool like Scratch and Pico-8 that would probably be hard to make and I might not even be able to finish, especailly with all the features I might not even be able to implement and some features I can't even fathom how they would be implemented... <a href="../SpriteLib"><i>*cough*</i></a><br><br>
+      Yeah... I chose the ladder.<br><br>
+      But remember the "<em>Must have its own URL</em>" part, I needed to find somewhere to host my site.</p>
+      <h1>//Insert story</h1>
     </div>
   </body>
 </html>

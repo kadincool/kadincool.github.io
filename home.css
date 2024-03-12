@@ -1,6 +1,7 @@
 body {
   margin: 0;
   padding: 15px;
+  padding-bottom: 0;
   font-family: 'Courier New', Courier, monospace;
 }
 div {
@@ -82,17 +83,32 @@ div {
 .project a {
   text-decoration: none;
 }
+#ibs {
+  text-align: right;
+}
+#ibs h2 {
+  padding-left: 70%;
+}
 #ibs::before {
-  background-image: linear-gradient(to right, black, transparent), url(./InteractiveBlockScape.png);
+  background-image: linear-gradient(to left, black, transparent), url(./InteractiveBlockScape.png);
   background-size: cover;
   background-position: center;
   /* background-image: linear-gradient(to right, white, lime); */
 }
-#slib h2 {
-  padding-left: 70%;
+#raycast::before {
+  background-image: linear-gradient(to right, black, transparent), url(./rayTracer.png);
+}
+#footer {
+  background-color: black;
+  color: gray;
+  margin-bottom: 0;
+  border-radius: 20px 20px 0 0;
 }
 #slib {
   text-align: right;
+}
+#slib h2 {
+  padding-left: 70%;
 }
 #slib::before {
   background-image: linear-gradient(to left, black, transparent), url(./SpriteLib.png);
