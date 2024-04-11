@@ -12,7 +12,7 @@
         /* height: 100vh; */
       }
       #content {
-        background-color: rgba(255, 255, 255, 0.7);
+        background-color: rgba(255, 255, 255, 0.75);
         max-width: 1024px;
         margin: auto;
         /* min-height: 100vh; */
@@ -20,7 +20,7 @@
         padding: 5px;
       }
       .curvedContainer {
-        margin: 5px;
+        margin: 10px;
         border-radius: 30px;
         border: black solid 3px;
         padding: 10px;
@@ -36,7 +36,7 @@
         flex-direction: row;
         overflow: hidden;
         padding: 0;
-        margin: 5px;
+        margin: 10px;
       }
       .option {
         text-align: center;
@@ -48,6 +48,19 @@
       .option:hover {
         background-image: linear-gradient(to top, rgb(255, 191, 0), rgb(255, 127, 0));
       }
+      .sectionHeader {
+        height: 50px;
+        width: 256px;
+        transform: translateX(-64px);
+        border-radius: 30px;
+        margin: 5px;
+        border: black solid 3px;
+        /* text-align: center; */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-image: linear-gradient(to bottom, rgb(0, 255, 255), rgb(0, 128, 128));
+      }
     </style>
   </head>
   <body>
@@ -56,13 +69,13 @@
         FEATURED:
       </div>
       <div id="toolbar" class="curvedContainer">
-        <div class="option">Arcade</div>
-        <div class="option">Projects</div>
-        <div class="option">Blog</div>
-        <div class="option">Experements</div>
-        <div class="option">About</div>
+        <div class="option" onclick="location='arcade'">Arcade</div>
+        <div class="option" onclick="location='projects'">Projects</div>
+        <div class="option" onclick="location='blog'">Blog</div>
+        <div class="option" onclick="location='experements'">Experements</div>
+        <div class="option" onclick="location='about'">About</div>
       </div>
-      <div class="sectionHeader"></div>
+      <div class="sectionHeader">Articles</div>
       Some Text
     </div>
   </body>
