@@ -60,12 +60,14 @@ body {
 #articles {
   height: 150pt;
   display: flex;
-  overflow: scroll;
+  overflow: hidden;
+  width: 100%;
 }
 .article {
   height: 95%;
   background-image: linear-gradient(to bottom, white, darkgray);
-  width: 200pt;
+  min-width: 200pt;
+  flex-basis: 200pt;
   border-radius: 25px;
   border: black solid 3px;
   box-sizing: border-box;
