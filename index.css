@@ -60,6 +60,7 @@ body {
 #articles {
   height: 150pt;
   display: flex;
+  overflow: scroll;
 }
 .article {
   height: 95%;

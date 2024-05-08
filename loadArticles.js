@@ -24,13 +24,12 @@ async function getArticles() {
   const references = await refs.json();
   const bDat = await fetch("./blog/index.json");
   const bData = await bDat.json(); 
-  console.log(references, bData);
+  //load them
   articles.innerHTML = "";
   if (!references || !references.blog)
     return;
   for (let i = 0; i < references.blog.length; i++) {
     let articleData = bData[references.blog[i]];
-    console.log(articleData);
     if (!articleData)
       continue;
     makeArticle(articleData.title, articleData.prev);
