@@ -61,6 +61,9 @@
         align-items: center;
         background-image: linear-gradient(to bottom, rgb(0, 255, 255), rgb(0, 128, 128));
       }
+      #articles {
+        height: 150pt;
+      }
     </style>
   </head>
   <body>
@@ -76,6 +79,10 @@
         <div class="option" onclick="location='about'">About</div>
       </div>
       <div class="sectionHeader">Articles</div>
+      <div id="articles">
+        loading...
+      </div>
+      <script src="./loadArticles.js"></script>
       Some Text
     </div>
   </body>
