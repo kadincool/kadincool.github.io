@@ -1,5 +1,9 @@
 {
   "test": {
     "title": "Test"
+  },
+  "test2": {
+    "title": "Second test",
+    "prev": "this one doesnt exist"
   }
 }

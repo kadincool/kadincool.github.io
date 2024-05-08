@@ -4,13 +4,36 @@
 
 const articles = document.getElementById("articles");
 
-function makeArticle() {
-  
+function makeArticle(title, prev) {
+  let newArticle = document.createElement("div");
+  let heading = document.createElement("h1");
+  let body = document.createElement("p");
+
+  newArticle.className = "article";
+
+  heading.textContent = title;
+  body.innerHTML = prev;
+
+  newArticle.appendChild(heading);
+  newArticle.appendChild(body);
+  articles.appendChild(newArticle);
 }
 
 async function getArticles() {
   const refs = await fetch("./refs.json");
   const references = await refs.json();
-  console.log(references);
+  const bDat = await fetch("./blog/index.json");
+  const bData = await bDat.json(); 
+  console.log(references, bData);
+  articles.innerHTML = "";
+  if (!references || !references.blog)
+    return;
+  for (let i = 0; i < references.blog.length; i++) {
+    let articleData = bData[references.blog[i]];
+    console.log(articleData);
+    if (!articleData)
+      continue;
+    makeArticle(articleData.title, articleData.prev);
+  }
 }
 getArticles();

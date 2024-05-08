@@ -63,9 +63,18 @@ body {
 }
 .article {
   height: 95%;
-  background-color: aqua;
+  background-image: linear-gradient(to bottom, white, darkgray);
   width: 200pt;
+  border-radius: 25px;
+  border: black solid 3px;
   box-sizing: border-box;
   padding: 5px;
   margin: 5px;
+  user-select: none;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.article h1 {
+  margin-top: 0;
 }
