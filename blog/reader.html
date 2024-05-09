@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Reading article</title>
+  </head>
+  <body>
+    <div id="article">Loading...</div>
+    <script>
+let reference = window.location.search;
+console.log(reference);
+
+if (reference[0] == "?") {
+  reference = reference.substring(1);
+} else {
+  throw new Error("no file specified");
+}
+
+console.log("pass", reference);
+loadMD(reference);
+
+async function loadMD(filePath) {
+  const file = await fetch(filePath);
+  const data = await file.text();
+
+  console.log(data);
+
+  let newLine = true;
+  for (let i = 0; i < data.length; i++) {
+    console.log(data[i], data[i].charCodeAt(0));
+  }
+}
+    </script>
+  </body>
+</html>
