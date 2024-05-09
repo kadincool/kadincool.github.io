@@ -2,6 +2,25 @@
 // const movies = await response.json();
 // console.log(movies);
 
+var scrollAdd = 0;
+var lastFrame = Date.now();
+const scrollSpeed = 1000;
+
+function frame() {
+  let delta = Date.now() - lastFrame;
+  lastFrame += delta;
+  delta /= 1000;
+
+  let frameScroll = scrollSpeed * delta;
+  frameScroll = Math.min(Math.abs(scrollAdd), frameScroll) * Math.sign(scrollAdd);
+
+  document.getElementById('articles').scrollBy(frameScroll, 0);
+  scrollAdd -= frameScroll;
+
+  requestAnimationFrame(frame);
+}
+frame();
+
 const articles = document.getElementById("articles");
 
 function makeArticle(title, prev) {
