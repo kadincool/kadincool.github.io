@@ -24,8 +24,15 @@ async function loadMD(filePath) {
 
   console.log(data);
 
+  let splitData = data.split(/\r?\n[\r?\n]+/);
+
+  console.log(splitData);
+
   let newLine = true;
   for (let i = 0; i < data.length; i++) {
+    if (data[i] == "\r") {
+      continue;
+    }
     console.log(data[i], data[i].charCodeAt(0));
   }
 }
