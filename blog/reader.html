@@ -12,6 +12,7 @@ console.log(reference);
 if (reference[0] == "?") {
   reference = reference.substring(1);
 } else {
+  document.getElementById("article").innerText = "ERROR: File not specified.";
   throw new Error("no file specified");
 }
 
@@ -23,18 +24,43 @@ async function loadMD(filePath) {
   const data = await file.text();
 
   console.log(data);
+  document.getElementById("article").innerText = data;
 
   let splitData = data.split(/\r?\n[\r?\n]+/);
 
   console.log(splitData);
 
+  let out = "";
+
   let newLine = true;
+
+  let spacing = false;
+  let spaceCount = 0;
   for (let i = 0; i < data.length; i++) {
+    if (data[i] == " ") {
+      if (!spacing) {
+        spacing = true;
+        spaceCount = 1;
+      } else {
+        spaceCount++;
+      }
+    }
+    if (/[a-z]|[A-Z]|[0-9]/.test(data[i])) {
+      // console.log(data[i], data[i].charCodeAt(0));
+      if (spacing) {
+        spacing = false;
+        out += " ";
+        // spacing = false;
+      }
+      out += data[i];
+      continue
+    }
     if (data[i] == "\r") {
       continue;
     }
     console.log(data[i], data[i].charCodeAt(0));
   }
+  console.log(out);
 }
     </script>
   </body>
