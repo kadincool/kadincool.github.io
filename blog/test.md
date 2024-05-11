@@ -2,7 +2,7 @@
 
 # header
 
-**bold** *italics* ***both*** `code *without* fromatting`
+**bold** *italics* ***both*** `code *without* formatting`
 
 ```
 code block *also* without formatting

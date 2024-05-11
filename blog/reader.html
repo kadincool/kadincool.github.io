@@ -31,6 +31,8 @@ async function loadMD(filePath) {
   document.getElementById("article").innerText = data;
 
   let out = "";
+  let line = "";
+  let mode = "";
   
   let newLine = false;
   let lineCount = 0;
