@@ -2,12 +2,17 @@
 <html lang="en">
   <head>
     <title>Reading article</title>
+    <style>
+      body {
+        font-family: 'Courier New', Courier, monospace;
+      }
+    </style>
   </head>
   <body>
     <div id="article">Loading...</div>
     <script>
 let reference = window.location.search;
-console.log(reference);
+// console.log(reference);
 
 if (reference[0] == "?") {
   reference = reference.substring(1);
@@ -16,27 +21,64 @@ if (reference[0] == "?") {
   throw new Error("no file specified");
 }
 
-console.log("pass", reference);
+// console.log("pass", reference);
 loadMD(reference);
 
 async function loadMD(filePath) {
   const file = await fetch(filePath);
   const data = await file.text();
 
-  console.log(data);
   document.getElementById("article").innerText = data;
 
-  let splitData = data.split(/\r?\n[\r?\n]+/);
-
-  console.log(splitData);
-
   let out = "";
-
-  let newLine = true;
-
+  
+  let newLine = false;
+  let lineCount = 0;
+  let lineBreak = false;
+  
   let spacing = false;
   let spaceCount = 0;
+  
+  const escapable = "\\`*_{}[]<>()#+-.!|";
+  let escaping = false;
+
   for (let i = 0; i < data.length; i++) {
+    //ignore \r (we're using \n)
+    if (data[i] == "\r") {
+      continue;
+    }
+    if (/[a-z]|[A-Z]|[0-9]/.test(data[i]) || (escaping && escapable.includes(data[i]))) {
+      // console.log(data[i], data[i].charCodeAt(0), /[a-z]|[A-Z]|[0-9]/.test(data[i]), escaping && escapable.includes(data[i]));
+      // console.log(escaping, data[i-1]);
+      if (newLine) {
+        spacing = true;
+        if (lineCount >= 2) {
+          //replace with splitting paragraphs
+          out += "\n\n";
+          spacing = false;
+        } else if (lineBreak) {
+          out += "\n";
+          spacing = false;
+        }
+        newLine = false;
+      }
+      if (spacing) {
+        spacing = false;
+        out += " ";
+      }
+      if (escaping) {
+        if (!escapable.includes(data[i])) {
+          out += "\\";
+        }
+        escaping = false;
+      }
+      out += data[i];
+      continue;
+    }
+    if (data[i] == "\\") {
+      escaping = true;
+      continue;
+    }
     if (data[i] == " ") {
       if (!spacing) {
         spacing = true;
@@ -44,21 +86,23 @@ async function loadMD(filePath) {
       } else {
         spaceCount++;
       }
-    }
-    if (/[a-z]|[A-Z]|[0-9]/.test(data[i])) {
-      // console.log(data[i], data[i].charCodeAt(0));
-      if (spacing) {
-        spacing = false;
-        out += " ";
-        // spacing = false;
-      }
-      out += data[i];
-      continue
-    }
-    if (data[i] == "\r") {
       continue;
     }
-    console.log(data[i], data[i].charCodeAt(0));
+    if (data[i] == "\n") {
+      if (!newLine) {
+        newLine = true;
+        lineCount = 1;
+        if (spacing && spaceCount >= 2) {
+          lineBreak = true;
+        }
+      } else {
+        lineCount++;
+      }
+      spacing = false;
+      spaceCount = 0;
+      continue;
+    }
+    // console.log(data[i], data[i].charCodeAt(0));
   }
   console.log(out);
 }
