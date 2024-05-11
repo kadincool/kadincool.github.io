@@ -37,7 +37,7 @@ seperated
 \*escape formatting\* with \\
 
 many   spaces   dont   care.
-     
-spaces can be in double breaks
 
    ignores spaces before line
+     
+spaces can be in double breaks
