@@ -28,21 +28,152 @@ async function loadMD(filePath) {
   const file = await fetch(filePath);
   const data = await file.text();
 
-  document.getElementById("article").innerText = data;
+  let translated = MDToHTML(data);
 
+  console.log(translated);
+  document.getElementById("article").innerHTML = translated;
+
+
+  
+  // let out = "";
+  // let segment = "";
+  // let mode = "";
+  
+  // let newLine = false;
+  // let lineCount = 0;
+  // let lineBreak = false;
+  
+  // let spacing = false;
+  // let spaceCount = 0;
+  
+  // // const escapable = "\\`*_{}[]<>()#+-.!|";
+  // let escaping = false;
+
+  // for (let i = 0; i < data.length; i++) {
+  //   //ignore \r (we're using \n)
+  //   if (data[i] == "\r") {
+  //     continue;
+  //   }
+  //   //spaces
+  //   if (data[i] == " ") {
+  //     if (!spacing) {
+  //       spacing = true;
+  //       spaceCount = 1;
+  //     } else {
+  //       spaceCount++;
+  //     }
+  //     continue;
+  //   }
+  //   //linebreaks
+  //   if (data[i] == "\n") {
+  //     if (!newLine) {
+  //       newLine = true;
+  //       lineCount = 1;
+  //       if (spacing && spaceCount >= 2) {
+  //         lineBreak = true;
+  //       }
+  //     } else {
+  //       lineCount++;
+  //     }
+  //     spacing = false;
+  //     spaceCount = 0;
+  //     continue;
+  //   }
+  //   //new segment check (should only run when no spaces or breaks)
+  //   if (newLine && lineCount >= 2) {
+  //     if (mode != "") {
+  //       out += "<" + mode + ">" + segment + "</" + mode + ">";
+  //       segment = "";
+  //       mode = "";
+  //     }
+  //     newLine = false
+  //   }
+  //   if (!escaping) {
+  //     //escape
+  //     if (data[i] == "\\") {
+  //       escaping = true;
+  //       continue;
+  //     }
+  //     //header
+  //     if (data[i] == "#") {
+  //       if (mode == "" || newLine) {
+  //         let count = 1;
+  //         //see how many #s there are
+  //         for (let j = 1; j <= 6; j++) {
+  //           if (data[i+j] == "#") {
+  //             count++;
+  //           } else {
+  //             break;
+  //           }
+  //         }
+  //         if (count == 7) {
+  //           mode = "p";
+  //         } else {
+  //           mode = "h" + count;
+  //           i += count - 1;
+  //           continue;
+  //         }
+  //       }
+  //     }
+  //   }
+  //   escaping = false;
+  //   // didn't get continued, copy text
+  //   if (mode == "") {
+  //     mode = "p";
+  //   }
+  //   if (newLine) {
+  //     if (lineBreak) {
+  //       segment += "<br>\n";
+  //     } else {
+  //       spacing = true;
+  //     }
+  //     newLine = false;
+  //   }
+  //   if (spacing && segment != "") {
+  //     segment += " ";
+  //   }
+  //   spacing = false;
+  //   segment += data[i];
+  // }
+  // console.log(out);
+  // document.getElementById("article").innerHTML = out;
+}
+
+function MDToHTML(data) {
   let out = "";
   let segment = "";
   let mode = "";
-  
+  let breakOnNextLine = false;
+
+  let spacing = false;
+  let spaceCount = 0;
+
   let newLine = false;
   let lineCount = 0;
   let lineBreak = false;
-  
-  let spacing = false;
-  let spaceCount = 0;
-  
-  const escapable = "\\`*_{}[]<>()#+-.!|";
+
   let escaping = false;
+  let escapeIndex = 0;
+
+  let bolding = false;
+  let boldIndex = 0;
+
+  let italicizing = false;
+  let italicIndex = 0;
+
+  const functions = "\\`*_{}[]<>()#+-.!|";
+
+  function addLine() {
+    if (mode != "") {
+      out += "<" + mode + ">" + segment + "</" + mode + ">\n\n";
+    }
+    segment = "";
+    mode = "";
+  }
+
+  function cancelFormatting() {
+
+  }
 
   for (let i = 0; i < data.length; i++) {
     //ignore \r (we're using \n)
@@ -71,90 +202,33 @@ async function loadMD(filePath) {
         lineCount++;
       }
       spacing = false;
-      spaceCount = 0;
       continue;
     }
     //new segment check (should only run when no spaces or breaks)
     if (newLine && lineCount >= 2) {
-      out += "<" + mode + ">" + segment + "</" + mode + ">";
-      segment = "";
-      mode = "";
+      addLine();
       newLine = false
     }
+    //function check
     if (!escaping) {
-      //escape
       if (data[i] == "\\") {
         escaping = true;
+        escapeIndex = segment.length;
         continue;
       }
-      if (data[i] == "#") {
-        if (mode == "") {
-          let count = 1;
-          //see how many #s there are
-          for (let j = 1; j <= 6; j++) {
-            if (data[i+j] == "#") {
-              count++;
-            } else {
-              break;
-            }
-          }
-          if (count == 7) {
-            mode = "p";
-          } else {
-            mode = "h" + count;
-            i += count - 1;
-            continue;
-          }
-        }
-      }
     }
-    // didn't get continued, copy text
+    //if we are here, then valid character
     if (mode == "") {
       mode = "p";
     }
-    if (newLine) {
-      if (lineBreak) {
-        segment += "<br>\n";
-      } else {
-        spacing = true;
-      }
-      newLine = false;
-    }
-    if (spacing && segment != "") {
+    if (spacing) {
       segment += " ";
       spacing = false;
     }
-    segment += data[i];
-    // if (/[a-z]|[A-Z]|[0-9]/.test(data[i]) || (escaping && escapable.includes(data[i]))) {
-    //   if (newLine) {
-    //     spacing = true;
-    //     if (lineCount >= 2) {
-    //       //replace with splitting paragraphs
-    //       out += "\n\n";
-    //       spacing = false;
-    //     } else if (lineBreak) {
-    //       out += "\n";
-    //       spacing = false;
-    //     }
-    //     newLine = false;
-    //   }
-    //   if (spacing) {
-    //     spacing = false;
-    //     out += " ";
-    //   }
-    //   if (escaping) {
-    //     if (!escapable.includes(data[i])) {
-    //       out += "\\";
-    //     }
-    //     escaping = false;
-    //   }
-    //   out += data[i];
-    //   continue;
-    // }
-    // console.log(data[i], data[i].charCodeAt(0));
+    segment += data[i]
   }
-  console.log(out);
-  document.getElementById("article").innerHTML = out;
+  addLine();
+  return out;
 }
     </script>
   </body>
