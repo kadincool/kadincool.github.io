@@ -31,7 +31,7 @@ async function loadMD(filePath) {
   document.getElementById("article").innerText = data;
 
   let out = "";
-  let line = "";
+  let segment = "";
   let mode = "";
   
   let newLine = false;
@@ -49,38 +49,7 @@ async function loadMD(filePath) {
     if (data[i] == "\r") {
       continue;
     }
-    if (/[a-z]|[A-Z]|[0-9]/.test(data[i]) || (escaping && escapable.includes(data[i]))) {
-      // console.log(data[i], data[i].charCodeAt(0), /[a-z]|[A-Z]|[0-9]/.test(data[i]), escaping && escapable.includes(data[i]));
-      // console.log(escaping, data[i-1]);
-      if (newLine) {
-        spacing = true;
-        if (lineCount >= 2) {
-          //replace with splitting paragraphs
-          out += "\n\n";
-          spacing = false;
-        } else if (lineBreak) {
-          out += "\n";
-          spacing = false;
-        }
-        newLine = false;
-      }
-      if (spacing) {
-        spacing = false;
-        out += " ";
-      }
-      if (escaping) {
-        if (!escapable.includes(data[i])) {
-          out += "\\";
-        }
-        escaping = false;
-      }
-      out += data[i];
-      continue;
-    }
-    if (data[i] == "\\") {
-      escaping = true;
-      continue;
-    }
+    //spaces
     if (data[i] == " ") {
       if (!spacing) {
         spacing = true;
@@ -90,6 +59,7 @@ async function loadMD(filePath) {
       }
       continue;
     }
+    //linebreaks
     if (data[i] == "\n") {
       if (!newLine) {
         newLine = true;
@@ -104,9 +74,87 @@ async function loadMD(filePath) {
       spaceCount = 0;
       continue;
     }
+    //new segment check (should only run when no spaces or breaks)
+    if (newLine && lineCount >= 2) {
+      out += "<" + mode + ">" + segment + "</" + mode + ">";
+      segment = "";
+      mode = "";
+      newLine = false
+    }
+    if (!escaping) {
+      //escape
+      if (data[i] == "\\") {
+        escaping = true;
+        continue;
+      }
+      if (data[i] == "#") {
+        if (mode == "") {
+          let count = 1;
+          //see how many #s there are
+          for (let j = 1; j <= 6; j++) {
+            if (data[i+j] == "#") {
+              count++;
+            } else {
+              break;
+            }
+          }
+          if (count == 7) {
+            mode = "p";
+          } else {
+            mode = "h" + count;
+            i += count - 1;
+            continue;
+          }
+        }
+      }
+    }
+    // didn't get continued, copy text
+    if (mode == "") {
+      mode = "p";
+    }
+    if (newLine) {
+      if (lineBreak) {
+        segment += "<br>\n";
+      } else {
+        spacing = true;
+      }
+      newLine = false;
+    }
+    if (spacing && segment != "") {
+      segment += " ";
+      spacing = false;
+    }
+    segment += data[i];
+    // if (/[a-z]|[A-Z]|[0-9]/.test(data[i]) || (escaping && escapable.includes(data[i]))) {
+    //   if (newLine) {
+    //     spacing = true;
+    //     if (lineCount >= 2) {
+    //       //replace with splitting paragraphs
+    //       out += "\n\n";
+    //       spacing = false;
+    //     } else if (lineBreak) {
+    //       out += "\n";
+    //       spacing = false;
+    //     }
+    //     newLine = false;
+    //   }
+    //   if (spacing) {
+    //     spacing = false;
+    //     out += " ";
+    //   }
+    //   if (escaping) {
+    //     if (!escapable.includes(data[i])) {
+    //       out += "\\";
+    //     }
+    //     escaping = false;
+    //   }
+    //   out += data[i];
+    //   continue;
+    // }
     // console.log(data[i], data[i].charCodeAt(0));
   }
   console.log(out);
+  document.getElementById("article").innerHTML = out;
 }
     </script>
   </body>
