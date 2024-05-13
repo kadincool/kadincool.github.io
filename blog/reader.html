@@ -2,11 +2,11 @@
 <html lang="en">
   <head>
     <title>Reading article</title>
-    <style>
+    <!-- <style>
       body {
         font-family: 'Courier New', Courier, monospace;
       }
-    </style>
+    </style> -->
   </head>
   <body>
     <div id="article">Loading...</div>
@@ -161,6 +161,11 @@ function MDToHTML(data) {
   let italicizing = false;
   let italicIndex = 0;
 
+  let code = false;
+  let codeIndex = 0;
+
+  let codeBlock = false;
+
   const functions = "\\`*_{}[]<>()#+-.!|";
 
   function addLine() {
@@ -173,6 +178,10 @@ function MDToHTML(data) {
 
   function cancelFormatting() {
 
+  }
+
+  function insert(index, string) {
+    segment = segment.slice(0, index) + string + segment.slice(index);
   }
 
   for (let i = 0; i < data.length; i++) {
@@ -216,13 +225,50 @@ function MDToHTML(data) {
         escapeIndex = segment.length;
         continue;
       }
+      if (data[i] == "#" && mode == "") {
+        mode = "h1";
+        continue;
+      }
+      if (data[i] == ">" && mode == "") {
+        mode = "blockquote";
+        continue;
+      }
+      if (data[i] == "*") {
+        if (!italicizing) {
+          italicizing = true;
+          italicIndex = segment.length;
+        } else {
+          italicizing = false;
+          insert(italicIndex, "<i>");
+          segment += "</i>";
+        }
+        continue;
+      }
+      if (data[i] == "`") {
+        if (!code) {
+          code = true;
+          codeIndex = segment.length;
+        } else {
+          code = false;
+          insert(codeIndex, "<samp>");
+          segment += "</samp>";
+        }
+        continue;
+      }
     }
     //if we are here, then valid character
     if (mode == "") {
       mode = "p";
     }
+    if (newLine) {
+      if (lineBreak) {
+        
+      }
+    }
     if (spacing) {
-      segment += " ";
+      if (!segment == "") {
+        segment += " ";
+      }
       spacing = false;
     }
     segment += data[i]
