@@ -17,21 +17,31 @@ function MDToHTML(data) {
 
   let escape = false;
 
+  function appendSegment() {
+    // TODO: finish styling
+    out += "<p>" + segment + "</p>\n";
+    segment = "";
+  }
+
+  function lineBreak() {
+    if (!newLine) {
+      newLine = true;
+      lineCount = 1;
+      if (spacing && spaceCount >= 2) {
+        addBreak = true;
+      }
+    } else {
+      lineCount++;
+    }
+    spacing = false;
+  }
+
   for (let i = 0; i < data.length; i++) {
     if (data[i] == "\r") {
       continue;
     }
     if (data[i] == "\n") {
-      if (!newLine) {
-        newLine = true;
-        lineCount = 1;
-        if (spacing && spaceCount >= 2) {
-          addBreak = true;
-        }
-      } else {
-        lineCount++;
-      }
-      spacing = false;
+      lineBreak();
       continue;
     }
     if (data[i] == " ") {
@@ -61,11 +71,6 @@ function MDToHTML(data) {
     segment += data[i];
   }
   appendSegment();
+  console.log(out);
   return out;
-}
-
-function appendSegment() {
-  // TODO: finish styling
-  out += segment;
-  segment = "";
 }
