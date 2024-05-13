@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Translator</title>
+  </head>
+  <body>
+    <textarea id="input">hello</textarea>
+    <button onclick="convert()">Convert</button>
+    <div id="output">Output</div>
+    <script src="./MDToHTML.js"></script>
+    <script>
+function convert() {
+  console.log(document.getElementById("input").value);
+  document.getElementById("output").innerHTML = MDToHTML(document.getElementById("input").value);
+}
+    </script>
+  </body>
+</html>
