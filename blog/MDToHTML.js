@@ -36,6 +36,15 @@ function MDToHTML(data) {
     spacing = false;
   }
 
+  function space() {
+    if (!spacing) {
+      spacing = true;
+      spaceCount = 1;
+    } else {
+      spaceCount++;
+    }
+  }
+
   for (let i = 0; i < data.length; i++) {
     if (data[i] == "\r") {
       continue;
@@ -45,12 +54,7 @@ function MDToHTML(data) {
       continue;
     }
     if (data[i] == " ") {
-      if (!spacing) {
-        spacing = true;
-        spaceCount = 1;
-      } else {
-        spaceCount++;
-      }
+      space();
       continue;
     }
     if (newLine && lineCount >= 2) {
@@ -64,7 +68,9 @@ function MDToHTML(data) {
         continue;
       }
     }
+    escape = false;
     if (spacing) {
+
       segment += " ";
       spacing = false;
     }
