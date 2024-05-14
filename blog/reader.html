@@ -168,6 +168,8 @@ function MDToHTML(data) {
 
   const functions = "\\`*_{}[]<>()#+-.!|";
 
+  let styleStack = [];
+
   function addLine() {
     if (mode != "") {
       out += "<" + mode + ">" + segment + "</" + mode + ">\n\n";
@@ -214,9 +216,10 @@ function MDToHTML(data) {
       continue;
     }
     //new segment check (should only run when no spaces or breaks)
-    if (newLine && lineCount >= 2) {
+    if (newLine && (lineCount >= 2 || breakOnNextLine)) {
       addLine();
-      newLine = false
+      newLine = false;
+      breakOnNextLine = false;
     }
     //function check
     if (!escaping) {
@@ -226,7 +229,17 @@ function MDToHTML(data) {
         continue;
       }
       if (data[i] == "#" && mode == "") {
-        mode = "h1";
+        let count = 1;
+        for (let j = 1; j <= 6; j++) {
+          if (data[i + j] == "#") {
+            count++;
+          } else {
+            break;
+          }
+        }
+        mode = "h" + count;
+        i += count - 1;
+        breakOnNextLine = true;
         continue;
       }
       if (data[i] == ">" && mode == "") {
