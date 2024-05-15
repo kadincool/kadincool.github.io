@@ -50,19 +50,48 @@ function MDToHTML(data) {
     }
   }
 
-  function checkAndAdd(style, index) {
+  function appendSpacing() {
+    if (spacing) {
+      if (newLine) {
+        if (addBreak) {
+          segment += "<br>";
+        } else {
+          spacing = true;
+          spaceCount = 1;
+        }
+        newLine = false;
+        addBreak = false;
+      }
+      if (spacing) {
+        if (segment != "") {
+          segment += " ";
+        }
+        spacing = false;
+      }
+    }
+  }
+
+  function checkAndAdd(style) {
     if (styleStack.includes(style)) {
-      let stackIndex = styleStack.indexOf(style);
+      if (styleStack[styleStack.length - 1] != style) {
+        segment += style;
+        return;
+      }
+      // let stackIndex = styleStack.length - 1;
+      styleStack.pop();
+      let startIndex = styleIndex.pop();
       let tag = getTag(style);
       if (!tag) {
         // console.error("There is not tag for your style.");
         throw new error("There is not tag for your style.");
       }
-      insert("<" + tag + ">", styleIndex[stackIndex]);
-      
+      insert("<" + tag + ">", startIndex);
+      segment += "</" + tag + ">";
+
     } else {
+      appendSpacing();
       styleStack.push(style);
-      styleIndex.push(index);
+      styleIndex.push(segment.length);
     }
   }
 
@@ -70,6 +99,8 @@ function MDToHTML(data) {
     switch (style) {
       case "*":
         return "i";
+      case "**":
+        return "b";
     }
   }
 
@@ -96,26 +127,19 @@ function MDToHTML(data) {
         escape = true;
         continue;
       }
-
+      if (data[i] == "*") {
+        if (data[i + 1] == "*") {
+          checkAndAdd("**");
+          i++;
+        } else {
+          checkAndAdd("*");
+        }
+        continue;
+      }
     }
     escape = false;
     //pass
-    if (newLine) {
-      if (addBreak) {
-        segment += "<br>";
-      } else {
-        spacing = true;
-        spaceCount = 1;
-      }
-      newLine = false;
-      addBreak = false;
-    }
-    if (spacing) {
-      if (segment != "") {
-        segment += " ";
-      }
-      spacing = false;
-    }
+    appendSpacing();
     segment += data[i];
   }
   appendSegment();
