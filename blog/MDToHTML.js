@@ -58,7 +58,8 @@ function MDToHTML(data) {
         // console.error("There is not tag for your style.");
         throw new error("There is not tag for your style.");
       }
-      insert("<" + tag + ">");
+      insert("<" + tag + ">", styleIndex[stackIndex]);
+      
     } else {
       styleStack.push(style);
       styleIndex.push(index);
