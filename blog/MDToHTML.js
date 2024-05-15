@@ -72,14 +72,16 @@ function MDToHTML(data) {
   }
 
   function checkForClose(index) {
+    // let index = segment.length;
     if (styleStack.length == 0) {
-      return false;
+      return 0;
     }
     let test = styleStack[styleStack.length - 1];
     // console.log(data, index, test.length)
     // console.log("test", data.slice(index, index + test.length), test)
     if (data.slice(index, index + test.length) == test) {
       checkAndAdd(data.slice(index, index + test.length));
+      return test.length;
     }
   }
 
@@ -117,7 +119,7 @@ function MDToHTML(data) {
   }
 
   for (let i = 0; i < data.length; i++) {
-    // console.log(segment, styleStack, styleIndex);
+    console.log(segment, styleStack, styleIndex);
     if (data[i] == "\r") {
       continue;
     }
@@ -136,7 +138,10 @@ function MDToHTML(data) {
     }
     //escape
     if (!escape) {
-      if (checkForClose(i)) {
+      let close = checkForClose(i);
+      if (close >= 1) {
+        console.log("closed");
+        i += close - 1;
         continue;
       }
       if (data[i] == "\\") {
