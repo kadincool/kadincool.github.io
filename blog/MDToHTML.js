@@ -109,6 +109,17 @@ function MDToHTML(data) {
     }
   }
 
+  // function scanAhead(tag, startIndex) {
+  //   let endIndex = data.length - 1;
+  //   for (let i = startIndex; i < data.length; i++) {
+
+  //   }
+  //   // let endIndex = find index before many line breaks
+  //   // go back from end to start
+  //   // if tag matches return index and splice it out
+  //   // if could not find match retrun -1
+  // }
+
   function getTag(style) {
     switch (style) {
       case "*":
@@ -119,7 +130,7 @@ function MDToHTML(data) {
   }
 
   for (let i = 0; i < data.length; i++) {
-    console.log(segment, styleStack, styleIndex);
+    // console.log(segment, styleStack, styleIndex);
     if (data[i] == "\r") {
       continue;
     }
@@ -140,7 +151,6 @@ function MDToHTML(data) {
     if (!escape) {
       let close = checkForClose(i);
       if (close >= 1) {
-        console.log("closed");
         i += close - 1;
         continue;
       }
