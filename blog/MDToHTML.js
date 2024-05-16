@@ -71,7 +71,7 @@ function MDToHTML(data) {
     }
   }
 
-  function checkForClose(index) {
+  function checkForClose(index) { //doesnt work with *italic **bold and italic***
     // let index = segment.length;
     if (styleStack.length == 0) {
       return 0;
