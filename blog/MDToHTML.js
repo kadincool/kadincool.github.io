@@ -96,8 +96,8 @@ function MDToHTML(data) {
       let startIndex = styleIndex.pop();
       let tag = getTag(style);
       if (!tag) {
-        // console.error("There is not tag for your style.");
-        throw new error("There is not tag for your style.");
+        // console.error("There is no tag for your style.");
+        throw new error("There is no tag for your style.");
       }
       insert("<" + tag + ">", startIndex);
       segment += "</" + tag + ">";
@@ -123,9 +123,11 @@ function MDToHTML(data) {
   function getTag(style) {
     switch (style) {
       case "*":
-        return "i";
+        return "em";
       case "**":
-        return "b";
+        return "strong";
+      case "`":
+        return "samp"
     }
   }
 
@@ -149,22 +151,28 @@ function MDToHTML(data) {
     }
     //escape
     if (!escape) {
+      let code = styleStack[styleStack.length - 1] == "`";
+      console.log(styleStack[styleStack.length - 1]);
       let close = checkForClose(i);
       if (close >= 1) {
         i += close - 1;
         continue;
       }
-      if (data[i] == "\\") {
+      if (data[i] == "\\" && !code) {
         escape = true;
         continue;
       }
-      if (data[i] == "*") {
+      if (data[i] == "*" && !code) {
         if (data[i + 1] == "*") {
           checkAndAdd("**");
           i++;
         } else {
           checkAndAdd("*");
         }
+        continue;
+      }
+      if (data[i] == "`") {
+        checkAndAdd("`");
         continue;
       }
     }
