@@ -4,6 +4,7 @@ function MDToHTML(data) {
 
   const functions = "\\`*_{}[]<>()#+-.!|";
 
+  let lineStyles = [];
   let styleStack = [];
   let styleIndex = [];
 
@@ -25,6 +26,7 @@ function MDToHTML(data) {
   function appendSegment() {
     // TODO: finish styling
     cancelFormatting();
+    addLineStyles();
     out += "<p>" + segment + "</p>\n";
     segment = "";
   }
@@ -36,6 +38,19 @@ function MDToHTML(data) {
 
       insert(style, startIndex);
     }
+  }
+
+  function addLineStyles() {
+    for (let i = lineStyles.length - 1; i >= 0; i--) {
+      let tag = getTag(lineStyles[i]);
+
+      if (!tag) {
+        throw new error("There is no tag for your style.");
+      }
+
+      segment = "<" + tag + ">" + segment + "</" + tag + ">";
+    }
+    lineStyles = [];
   }
 
   function lineBreak() {
@@ -139,7 +154,9 @@ function MDToHTML(data) {
       case "__":
         return "strong";
       case "`":
-        return "samp"
+        return "samp";
+      case "#":
+        return "h1";
     }
   }
 
@@ -172,6 +189,11 @@ function MDToHTML(data) {
       }
       if (data[i] == "\\" && !code) {
         escape = true;
+        continue;
+      }
+      if (data[i] == "#" && segment == "" && !code) {
+        //TODO: Check header count
+        lineStyles.push("#");
         continue;
       }
       if (data[i] == "*" && !code) {
