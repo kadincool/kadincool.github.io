@@ -24,8 +24,18 @@ function MDToHTML(data) {
 
   function appendSegment() {
     // TODO: finish styling
+    cancelFormatting();
     out += "<p>" + segment + "</p>\n";
     segment = "";
+  }
+
+  function cancelFormatting() {
+    for (let i = styleStack.length - 1; i >= 0; i--) {
+      let style = styleStack.pop();
+      let startIndex = styleIndex.pop();
+
+      insert(style, startIndex);
+    }
   }
 
   function lineBreak() {
@@ -123,8 +133,10 @@ function MDToHTML(data) {
   function getTag(style) {
     switch (style) {
       case "*":
+      case "_":
         return "em";
       case "**":
+      case "__":
         return "strong";
       case "`":
         return "samp"
@@ -168,6 +180,15 @@ function MDToHTML(data) {
           i++;
         } else {
           checkAndAdd("*");
+        }
+        continue;
+      }
+      if (data[i] == "_" && !code) {
+        if (data[i + 1] == "_") {
+          checkAndAdd("__");
+          i++;
+        } else {
+          checkAndAdd("_");
         }
         continue;
       }
