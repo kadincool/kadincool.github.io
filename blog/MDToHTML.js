@@ -197,9 +197,16 @@ function MDToHTML(data) {
         continue;
       }
     }
-    escape = false;
     //pass
     appendSpacing();
+    
+    if (escape && data[i] == "<") {
+      segment += "&lt";
+      escape = false;
+      continue;
+    }
+    escape = false;
+
     segment += data[i];
   }
   appendSegment();
