@@ -1,0 +1,22 @@
+// a line with ``` will show code until it is closed, If it is closed
+codeblock = false
+// * = italic, ** = bold, *** = both
+// spaces cannot follow those, else theyre innefective
+// ` = one line code, styling is cancelled inside them
+// if those arent closed, they just get printed
+styleStack = []
+// \ escapes formatting, incliding html
+escaping = false
+// many spaces are ignored
+spacing = false
+// # amout results in different header levels
+// > is blockquote
+lineStyles = []
+// lines starting with * followed by a space are part of an unordered list
+// lines starting with a number followed by a . followed with a space are part of an ordered list
+// if 2+ more spaces are in a list element from a previous element, then the element is a sublist
+listStack = []
+lastSpaces = 0
+//make links using [display text](https://website.url.com "hover text")
+//make images using ![alt text](https://image.url.com "hover text")
+url = {making: false, typed: "", text: "", path: "", typingHover: false, hover: "", image: false}

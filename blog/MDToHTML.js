@@ -4,7 +4,25 @@ function MDToHTML(data) {
 
   const functions = "\\`*_{}[]<>()#+-.!|";
 
+  //full line styling
   let lineStyles = [];
+
+  //lists
+  let listStack = [];
+  let lastSpaces = 0;
+  
+  //urls
+  url = {
+    making: false, 
+    typed: "", 
+    text: "", 
+    path: "", 
+    typingHover: false, 
+    hover: "", 
+    image: false
+  };
+
+  //inline styling
   let styleStack = [];
   let styleIndex = [];
 
