@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Projects</title>
+    <style>
+      body {
+        background-image: url("./tape.png");
+        margin: 0;
+      }
+      .steel {
+        color: black;
+        margin: 20px;
+        margin-bottom: 0;
+        background-image: linear-gradient(to left, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.1)), url(./steel.png);
+        padding: 10px;
+        box-sizing: border-box;
+        border-radius: 16px;
+      }
+      .header {
+        text-align: center;
+      }
+      .main {
+        max-width: 1024px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .warn {
+        color: red;
+        text-decoration: underline;
+        font-weight: bold;
+      }
+      .project {
+        padding: 30px;
+      }
+      .project p {
+        max-width: 50%;
+      }
+      
+      
+      /* #header p, #header h1 { */
+        /* backdrop-filter: invert(100%); */
+        /* filter: invert(100%);
+        mix-blend-mode: difference; */
+        /* background-color: rgba(0, 0, 0, 0.5); */
+      /* } */
+    </style>
+  </head>
+  <body>
+    <div class="steel header">
+      <h1>Projects</h1>
+      <p>This is the collection of all my not necissarily game projects</p>
+    </div>
+    <div class="steel main project">
+      <h1><a href="../InteractiveBlockscape/raycaster">Raycaster</a></h1>
+      <p class="warn">WARNING: computationally expensive</p>
+      <p>A raycaster to render voxels, originally designed as a proposed render for my game, interactive blockscape</p>
+    </div>
+  </body>
+</html>
