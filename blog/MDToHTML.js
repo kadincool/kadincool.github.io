@@ -164,6 +164,11 @@ function MDToHTML(data) {
   // }
 
   function getTag(style) {
+    // console.log(style);
+    // console.log(style[0]);
+    if (style[0] == "#" && style.length <= 6) {
+      return "h" + style.length;
+    }
     switch (style) {
       case "*":
       case "_":
@@ -211,6 +216,15 @@ function MDToHTML(data) {
       }
       if (data[i] == "#" && segment == "" && !code) {
         //TODO: Check header count
+        let headerCount = 0;
+        let style = "#";
+        for (let j = 1; j <= 6; j++) {
+          if (data[i + j] == " ") {
+            
+          } else if (data[i + j] == "#") {
+
+          }
+        }
         lineStyles.push("#");
         continue;
       }
