@@ -28,11 +28,11 @@ body {
   user-select: none;
 }
 #showcase {
-  background-image: linear-gradient(to bottom, rgb(0, 127, 255), rgb(0, 63, 127));
+  background-image: linear-gradient(to bottom, #007fff, #003f7f);
   aspect-ratio: 4/1;
 }
 #toolbar {
-  background-image: linear-gradient(to bottom, rgb(255, 191, 0), rgb(255, 127, 0));
+  background-image: linear-gradient(to bottom, #ffaf00, #ff7f00);
   display: flex;
   flex-direction: row;
   overflow: hidden;
@@ -47,7 +47,7 @@ body {
   border-radius: 30px;
 }
 .option:hover {
-  background-image: linear-gradient(to top, rgb(255, 191, 0), rgb(255, 127, 0));
+  background-image: linear-gradient(to top, #ffaf00, #ff7f00);
 }
 .sectionHeader {
   height: 50px;
