@@ -1,6 +1,6 @@
 body {
   background-color: aqua;
-  background-image: url(./sky4xtrans.png), linear-gradient(135deg, rgb(0, 255, 255), rgb(0, 127, 255));
+  background-image: url(./sky4xtrans.png), linear-gradient(135deg, #00ffff, #007fff);
   /* background-image: url(./sky4x.png); */
   margin: 0;
   font-family: 'Courier New', Courier, monospace;
@@ -60,7 +60,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-image: linear-gradient(to bottom, rgb(0, 255, 255), rgb(0, 128, 128));
+  background-image: linear-gradient(to bottom, #00ffff, #007f7f);
 }
 .outerScroller {
   display: flex;
@@ -111,4 +111,26 @@ body {
 
 hr {
   width: 95%;
+}
+
+p, a {
+  margin: 0 10px;
+  padding: 5px 10px;
+  border-radius: 10px;
+}
+
+a {
+  color: #00af00;
+  text-decoration: none;
+}
+
+a:visited {
+  color: #007f00;
+  text-decoration: none;
+}
+
+a:hover {
+  color: black;
+  text-decoration: underline;
+  background-color: #00af00;
 }
