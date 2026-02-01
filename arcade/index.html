@@ -3,56 +3,83 @@
   <head>
     <title>The arcade</title>
     <style>
-      body {
-        background-color: darkblue;
-        background-image: url(./arcadeBg8x.png);
-        font-family: 'Courier New', Courier, monospace;
-        font-weight: bold;
-        font-size: large;
-        margin: 0;
-      }
-      #list {
-        background-color: rgba(0, 0, 0, 0.25);
-        border: white solid;
-        box-sizing: border-box;
-        border-width: 0 3px;
-        backdrop-filter: blur(4px);
-        max-width: 1024px;
-        margin: auto;
-        display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
-        min-height: 100vh;
-      }
-      .game {
-        color: white;
-        box-sizing: border-box;
-        width: 256px;
-        height: 384px;
-        border: lime solid 3px;
-        font-size: x-large;
-        /* border-radius: 30px; */
-        background-image: linear-gradient(to bottom, rgb(64, 64, 64), rgb(0, 0, 0));
-        display: flex;
-        justify-content: center;
-        align-items: end;
-        cursor: pointer;
-        text-align: center;
-        user-select: none;
-        margin: 10px;
-        padding: 10pt;
-      }
+body {
+  background-color: darkblue;
+  background-image: url(./arcadeBg8x.png);
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: bold;
+  font-size: large;
+  margin: 0;
+}
+#list {
+  background-color: rgba(0, 0, 0, 0.25);
+  border: white solid;
+  box-sizing: border-box;
+  border-width: 0 3px;
+  backdrop-filter: blur(4px);
+  max-width: 1024px;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  min-height: 100vh;
+}
+.game {
+  color: white;
+  box-sizing: border-box;
+  width: 256px;
+  height: 384px;
+  border: lime solid 3px;
+  font-size: x-large;
+  /* border-radius: 30px; */
+  background-image: linear-gradient(to bottom, rgb(64, 64, 64), rgb(0, 0, 0));
+  display: flex;
+  justify-content: center;
+  align-items: end;
+  cursor: pointer;
+  text-align: center;
+  user-select: none;
+  margin: 10px;
+  padding: 10pt;
+  background-size: cover;
+  background-position: center;
+}
+#superDarts {
+  background-image: linear-gradient(to bottom, transparent, black), url(./superDartsPA.png);
+}
+#cuz {
+  background-image: linear-gradient(to bottom, transparent, black), url(./CUZPortraitArt.png);
+}
+#meandmyself {
+  background-image: linear-gradient(to bottom, transparent, black), url(./MeAndMyselfPA.png);
+}
+#blockscape {
+  background-image: linear-gradient(to bottom, transparent, black), url(./InteractiveBlockscapePA.png);
+}
+#stg {
+  background-image: linear-gradient(to bottom, transparent, black), url(./STGPA.png);
+}
+#botd {
+  background-image: linear-gradient(to bottom, transparent, black), url(./BOTDLA.png);
+}
+#soulslinger {
+  background-image: linear-gradient(to bottom, transparent, black), url(./soulslingerPA.png);
+}
+#dodge {
+  background-image: linear-gradient(to bottom, transparent, black), url(./dodgePA.png);
+}
     </style>
   </head>
   <body>
     <div id="list">
-      <div class="game" onclick="location='../cuz'">Clouds Underneath Zombies</div>
-      <div class="game" onclick="location='../meAndMyself'">Me and Myself</div>
-      <div class="game" onclick="location='../InteractiveBlockscape'">Interactive Blockscape</div>
-      <div class="game" onclick="location='../2023JS/Square; the game/square10 (load).html'">Square: The Game</div>
-      <div class="game" onclick="location='../2023JS/Battle of the Dice/BotD 8-28.html'">Battle of the Dice</div>
-      <div class="game" onclick="location='../Soul-Slinger'">Soul slinger</div>
-      <div class="game" onclick="location='../dodge'">Dodge</div>
+      <div class="game" id="cuz" onclick="location='../cuz'">Clouds Underneath Zombies</div>
+      <div class="game" id="meandmyself" onclick="location='../meAndMyself'">Me and Myself</div>
+      <div class="game" id="blockscape" onclick="location='../InteractiveBlockscape'">Interactive Blockscape</div>
+      <div class="game" id="stg" onclick="location='../random/STG/STGDefinitiveEdition.html'">Square: The Game</div>
+      <div class="game" id="botd" onclick="location='../2023JS/Battle of the Dice/BotD 8-28.html'">Battle of the Dice</div>
+      <div class="game" id="soulslinger" onclick="location='../Soul-Slinger'">Soul slinger</div>
+      <div class="game" id="dodge" onclick="location='../dodge'">Dodge</div>
+      <div class="game" id="superDarts" onclick="location='../random/superDarts'">Super Darts</div>
     </div>
   </body>
 </html>
